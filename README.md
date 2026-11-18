@@ -1,16 +1,26 @@
-# Shadowrocket Modules
+# Shadowrocket / Stash 配置
 
-个人使用的 Shadowrocket 模块集合，主要由原 Quantumult X 配置迁移而来。
+个人使用的代理规则与去广告模块集合，主要由原 Quantumult X 配置迁移而来。
 
-## Modules
+## Shadowrocket
+
+根目录保留原有 Shadowrocket 模块：
 
 - `YouTube_AdClean.sgmodule` — YouTube 去广告
 - `Amap_AdClean.sgmodule` — 高德地图净化
 - `Goofish_AdClean.sgmodule` — 闲鱼净化
 - `JavDB_AdClean_EXPERIMENTAL.sgmodule` — JavDB APP 净化（实验版）
 
-## 使用
+## Stash
 
-Shadowrocket → 配置 → 模块 → 添加模块，然后粘贴对应文件的 Raw URL。
+Stash 版本位于 `stash/`：
 
-> JavDB 模块为实验版。其余模块也依赖上游脚本和接口，上游变化时可能需要同步调整。
+- `stash/config.yaml` — 主配置（DNS / 策略组 / 分流）
+- `stash/overrides/YouTube_AdClean.stoverride`
+- `stash/overrides/Amap_AdClean.stoverride`
+- `stash/overrides/Goofish_AdClean.stoverride`
+- `stash/overrides/JavDB_AdClean_EXPERIMENTAL.stoverride`
+
+详细使用方法见 `stash/README.md`。
+
+> 仓库不包含个人代理节点、订阅地址或 CA 证书。JavDB 模块仍为实验版。
