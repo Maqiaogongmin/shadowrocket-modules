@@ -1,0 +1,24 @@
+#!name=高德地图净化
+#!desc=由墨鱼 ddgksf2013 的 QX AmapAds.conf 转换为 Shadowrocket 模块。2026-11-18
+#!author=ddgksf2013 / migrated for Shadowrocket
+#!homepage=https://github.com/ddgksf2013/Rewrite
+
+[Rule]
+DOMAIN-SUFFIX,optimus-ads.amap.com,DIRECT
+
+[URL Rewrite]
+^https?:\/\/.*\.amap\.com\/ws\/aos\/alimama\/splash_screen _ reject-200
+^https?:\/\/.*\.amap\.com\/v\d\/ai_rec\/ _ reject-dict
+^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/card-service-route-plan\? _ reject-dict
+^https?:\/\/.*\.amap\.com\/ws\/boss\/order_web\/\w{8}_information _ reject-200
+^https?:\/\/.*\.amap\.com\/ws\/asa\/ads_attribution _ reject
+^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend _ reject-dict
+^https?:\/\/.*\.amap\.com\/uploadimg\/\w+\.gif _ reject-img
+^https?:\/\/.*\.amap\.com\/ws\/valueadded\/weather _ reject-dict
+
+[Script]
+高德AMDC = type=http-response,pattern=^http:\/\/amdc\.m\.taobao\.com,requires-body=1,max-size=-1,engine=auto,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js
+高德响应净化 = type=http-response,pattern=^https?:\/\/.*\.amap\.com\/(ws\/message\/notice\/list|ws\/shield\/frogserver\/aocs\/updatable|ws\/shield\/search\/nearbyrec_smart|ws\/promotion-web\/resource|ws\/faas\/amap-navigation\/main-page|ws\/valueadded\/alimama\/splash_screen|ws\/msgbox\/pull|ws\/shield\/dsp\/profile\/index\/nodefaas|ws\/shield\/search\/new_hotword),requires-body=1,max-size=-1,engine=auto,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+
+[MITM]
+hostname = %APPEND% m5.amap.com, m5-zb.amap.com, center.amap.com, amap-aos-info-nogw.amap.com, ai.amap.com
