@@ -1,4 +1,4 @@
-# Shadowrocket / Stash 配置
+# Shadowrocket / Stash / FLClash 配置
 
 个人使用的代理规则与去广告模块集合，主要由原 Quantumult X 配置迁移而来。
 
@@ -13,14 +13,16 @@
 
 ## Stash
 
-Stash 版本位于 `stash/`：
+位于 `stash/`：
 
 - `stash/config.yaml` — 主配置（DNS / 策略组 / 分流）
-- `stash/overrides/YouTube_AdClean.stoverride`
-- `stash/overrides/Amap_AdClean.stoverride`
-- `stash/overrides/Goofish_AdClean.stoverride`
-- `stash/overrides/JavDB_AdClean_EXPERIMENTAL.stoverride`
+- `stash/overrides/*.stoverride` — YouTube / 高德 / 闲鱼 / JavDB 覆写
 
-详细使用方法见 `stash/README.md`。
+## FLClash
 
-> 仓库不包含个人代理节点、订阅地址或 CA 证书。JavDB 模块仍为实验版。
+位于 `flclash/`：
+
+- `flclash/override.js` — 给已有节点/订阅自动补上策略组与分流
+- `flclash/README.md` — Android / Windows 导入说明
+
+> 仓库不包含个人代理节点、订阅地址、UUID、密码或 CA 证书。
