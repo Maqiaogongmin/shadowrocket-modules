@@ -1,0 +1,12 @@
+#!name=JavDB APP 净化（实验版）
+#!desc=原 QX javdbapp.ads.js 的 Shadowrocket 包装。触发规则参考现有 Shadowrocket JavDB 配置；脚本仍调用墨鱼当前原始地址。2026-11-18
+#!author=ddgksf2013 / experimental Shadowrocket wrapper
+#!homepage=https://ddgksf2013.top/
+
+# 注意：原始 JS 的完整 QX 重写元数据无法直接读取，因此此模块属于实验版。
+
+[Script]
+JavDB净化 = type=http-response,pattern=^https?:\/\/api\.btyjscl\.com\/api\/v\d\/(ads|startup|users|movies),requires-body=1,max-size=-1,engine=auto,script-path=https://ddgksf2013.top/scripts/javdbapp.ads.js
+
+[MITM]
+hostname = %APPEND% api.btyjscl.com
