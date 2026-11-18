@@ -1,0 +1,53 @@
+name: 高德地图净化
+desc: 由 ddgksf2013 的 AmapAds.conf 迁移到 Stash。保留 URL 拦截与 amap.js / amdc.js 处理。
+icon: https://github.com/ddgksf2013/Icon/raw/master/qx/gaode.png
+
+rules:
+  - 'DOMAIN-SUFFIX,optimus-ads.amap.com,DIRECT'
+
+http:
+  mitm:
+    - m5.amap.com
+    - m5-zb.amap.com
+    - center.amap.com
+    - amap-aos-info-nogw.amap.com
+    - ai.amap.com
+
+  force-http-engine:
+    - 'amdc.m.taobao.com:80'
+
+  url-rewrite:
+    - '^https?:\/\/.*\.amap\.com\/ws\/aos\/alimama\/splash_screen - reject-200'
+    - '^https?:\/\/.*\.amap\.com\/v\d\/ai_rec\/ - reject-dict'
+    - '^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/card-service-route-plan\? - reject-dict'
+    - '^https?:\/\/.*\.amap\.com\/ws\/boss\/order_web\/\w{8}_information - reject-200'
+    - '^https?:\/\/.*\.amap\.com\/ws\/asa\/ads_attribution - reject'
+    - '^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend - reject-dict'
+    - '^https?:\/\/.*\.amap\.com\/uploadimg\/\w+\.gif - reject-img'
+    - '^https?:\/\/.*\.amap\.com\/ws\/valueadded\/weather - reject-dict'
+
+  script:
+    - name: amap-amdc-clean
+      match: '^http:\/\/amdc\.m\.taobao\.com'
+      type: response
+      require-body: true
+      max-size: -1
+      timeout: 10
+      engine: auto
+
+    - name: amap-response-clean
+      match: '^https?:\/\/.*\.amap\.com\/(ws\/message\/notice\/list|ws\/shield\/frogserver\/aocs\/updatable|ws\/shield\/search\/nearbyrec_smart|ws\/promotion-web\/resource|ws\/faas\/amap-navigation\/main-page|ws\/valueadded\/alimama\/splash_screen|ws\/msgbox\/pull|ws\/shield\/dsp\/profile\/index\/nodefaas|ws\/shield\/search\/new_hotword)'
+      type: response
+      require-body: true
+      max-size: -1
+      timeout: 10
+      engine: auto
+
+script-providers:
+  amap-amdc-clean:
+    url: https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js
+    interval: 86400
+
+  amap-response-clean:
+    url: https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+    interval: 86400
