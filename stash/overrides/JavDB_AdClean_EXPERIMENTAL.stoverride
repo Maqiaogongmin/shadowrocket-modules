@@ -1,0 +1,20 @@
+name: JavDB APP 净化（实验版）
+desc: 原 QX javdbapp.ads.js 的 Stash 包装。由于原脚本依赖 QX 资源解析器补全触发元数据，本版本仍标记为实验版。
+
+http:
+  mitm:
+    - api.btyjscl.com
+
+  script:
+    - name: javdb-response-clean
+      match: '^https?:\/\/api\.btyjscl\.com\/api\/v\d\/(ads|startup|users|movies)'
+      type: response
+      require-body: true
+      max-size: -1
+      timeout: 10
+      engine: auto
+
+script-providers:
+  javdb-response-clean:
+    url: https://ddgksf2013.top/scripts/javdbapp.ads.js
+    interval: 86400
