@@ -1,0 +1,227 @@
+# Stash 主配置
+# 由原 Quantumult X 配置迁移
+# 节点不写入本文件。请在 Stash 中自行添加节点到本配置。
+# Proxy 使用 include-all: true，会自动收纳本配置中的所有节点与代理集。
+
+mode: rule
+log-level: warning
+ipv6: false
+
+dns:
+  enable: true
+  ipv6: false
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 114.114.114.114
+  nameserver-policy:
+    '+.icloud.com': 119.29.29.29
+    '+.icloud.com.cn': 119.29.29.29
+    '+.tencent.com': 119.29.29.29
+    '+.weixin.com': 119.29.29.29
+  fake-ip-filter:
+    - '+.10099.com.cn'
+    - '+.cmpassport.com'
+    - '+.jegotrip.com.cn'
+    - '+.icitymobile.mobi'
+    - 'id6.me'
+    - '+.pingan.com.cn'
+
+proxies: []
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    include-all: true
+    proxies:
+      - DIRECT
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png
+
+  - name: Telegram
+    type: select
+    proxies: [DIRECT, Proxy, REJECT]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram.png
+
+  - name: AdvertisingLite
+    type: select
+    proxies: [DIRECT, Proxy, REJECT]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Advertising.png
+
+  - name: 网易云音乐
+    type: select
+    proxies: [DIRECT, Proxy, REJECT]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netease_Music.png
+
+  - name: Apple
+    type: select
+    proxies: [DIRECT, Proxy, REJECT]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_2.png
+
+  - name: WeChat
+    type: select
+    proxies: [DIRECT, Proxy, REJECT]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/WeChat.png
+
+  - name: Shawn
+    type: select
+    proxies: [DIRECT, Proxy, REJECT]
+    icon: https://raw.githubusercontent.com/Yuanxsxs/QtumultX/master/Icon/JiuMei-icon/JiuMei-icon/Final.png
+
+  - name: DouBan
+    type: select
+    proxies: [DIRECT, Proxy, REJECT]
+    icon: https://raw.githubusercontent.com/Yuanxsxs/QtumultX/master/Icon/JiuMei-icon/JiuMei-icon/DHF.png
+
+  - name: YouTube
+    type: select
+    proxies: [DIRECT, Proxy]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube_Letter.png
+
+  - name: 炉石
+    type: select
+    proxies: [Proxy]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png
+
+  - name: 全球加速
+    type: select
+    proxies: [DIRECT, Proxy]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+
+  - name: 哔哩哔哩
+    type: select
+    proxies: [DIRECT, Proxy]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png
+
+  - name: 声田音乐
+    type: select
+    proxies: [DIRECT, Proxy]
+    icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png
+
+  - name: 国际媒体
+    type: select
+    proxies: [DIRECT, Proxy]
+    icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Streaming.png
+
+rule-providers:
+  wechat:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat.yaml
+    interval: 172800
+
+  telegram:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    interval: 172800
+
+  douban:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/DouBan/DouBan.yaml
+    interval: 172800
+
+  javdb:
+    behavior: classical
+    format: text
+    url: https://yfamilys.com/rule/Javdb.list
+    interval: 172800
+
+  youtube:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
+    interval: 172800
+
+  blizzard:
+    behavior: classical
+    format: text
+    url: https://yfamilys.com/rule/Blizzard.list
+    interval: 172800
+
+  spotify:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
+    interval: 172800
+
+  streaming:
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/ddgksf2013/Filter/master/Streaming.list
+    interval: 172800
+
+  apple:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml
+    interval: 172800
+
+  china-max-domain:
+    behavior: domain
+    format: text
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_Domain.txt
+    interval: 172800
+
+  china-max-ip:
+    behavior: ipcidr
+    format: text
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMax/ChinaMax_IP_No_IPv6.txt
+    interval: 172800
+
+  asn-china:
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.China.yaml
+    interval: 172800
+
+rules:
+  # 原 QX excluded_routes：用最高优先级 DIRECT 规则等效处理
+  - 'IP-CIDR,239.255.255.250/32,DIRECT,no-resolve'
+  - 'IP-CIDR,24.105.30.129/32,DIRECT,no-resolve'
+  - 'IP-CIDR,185.60.112.157/32,DIRECT,no-resolve'
+  - 'IP-CIDR,185.60.112.158/32,DIRECT,no-resolve'
+  - 'IP-CIDR,182.162.132.1/32,DIRECT,no-resolve'
+
+  # 原 QX udp_drop_list = STUN
+  - 'PROTOCOL,STUN,REJECT'
+
+  # 本地规则
+  - 'DOMAIN-SUFFIX,tailscale.com,Proxy'
+  - 'DOMAIN-SUFFIX,0414004.xyz,Proxy'
+  - 'DOMAIN,backend.intelalloc.com,DIRECT'
+  - 'DOMAIN,api.aipaibox.com,DIRECT'
+  - 'DOMAIN-SUFFIX,yfamilys.com,Proxy'
+  - 'DOMAIN-SUFFIX,ddgksf2013.top,Proxy'
+  - 'DOMAIN,p.l.qq.com,REJECT'
+  - 'DOMAIN-SUFFIX,pgdt.gtimg.cn,REJECT'
+  - 'DOMAIN-SUFFIX,gdt.qq.com,REJECT'
+  - 'DOMAIN,ad.12306.cn,DIRECT'
+  - 'DOMAIN,sdkapp.uve.weibo.com,DIRECT'
+  - 'DOMAIN-KEYWORD,github,Proxy'
+
+  # 局域网 / 本地 IP
+  - 'IP-CIDR,10.0.0.0/8,DIRECT,no-resolve'
+  - 'IP-CIDR,127.0.0.0/8,DIRECT,no-resolve'
+  - 'IP-CIDR,172.16.0.0/12,DIRECT,no-resolve'
+  - 'IP-CIDR,192.168.0.0/16,DIRECT,no-resolve'
+  - 'IP-CIDR,224.0.0.0/24,DIRECT,no-resolve'
+  - 'IP-CIDR,182.254.116.0/24,DIRECT,no-resolve'
+
+  # 远程规则，顺序沿用原 QX 配置
+  - 'RULE-SET,wechat,WeChat'
+  - 'RULE-SET,telegram,Telegram'
+  - 'RULE-SET,douban,DouBan'
+  - 'RULE-SET,javdb,Proxy'
+  - 'RULE-SET,youtube,YouTube'
+  - 'RULE-SET,blizzard,炉石'
+  - 'RULE-SET,spotify,声田音乐'
+  - 'RULE-SET,streaming,国际媒体'
+  - 'RULE-SET,apple,Apple'
+
+  # 国内直连
+  - 'RULE-SET,china-max-domain,DIRECT'
+  - 'RULE-SET,china-max-ip,DIRECT,no-resolve'
+  - 'RULE-SET,asn-china,DIRECT,no-resolve'
+
+  - 'MATCH,Proxy'
