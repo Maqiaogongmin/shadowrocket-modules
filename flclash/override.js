@@ -141,9 +141,6 @@ function main(config) {
     "IP-CIDR,185.60.112.158/32,DIRECT,no-resolve",
     "IP-CIDR,182.162.132.1/32,DIRECT,no-resolve",
 
-    // Block STUN
-    "PROTOCOL,STUN,REJECT",
-
     // Local custom rules
     "DOMAIN-SUFFIX,tailscale.com,Proxy",
     "DOMAIN-SUFFIX,0414004.xyz,Proxy",
