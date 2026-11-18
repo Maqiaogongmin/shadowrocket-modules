@@ -1,0 +1,45 @@
+name: 闲鱼净化
+desc: 由 ddgksf2013 的 GoofishAds.conf 迁移到 Stash。JQ 正文改写使用 Stash 原生 response-jq。
+icon: https://github.com/ddgksf2013/Icon/raw/master/qx/xianyu.png
+
+rules:
+  - 'DOMAIN-SUFFIX,iyes.youku.com,REJECT'
+
+http:
+  mitm:
+    - acs.m.goofish.com
+    - g-acs.m.goofish.com
+
+  force-http-engine:
+    - '*:80'
+
+  url-rewrite:
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.*splash\.ads - reject-200'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.idle\.ad\.expose - reject-200'
+
+  body-rewrite:
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.user\.strategy\.list response-jq .data.strategies = [{}]'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlehome\.home\.circle\.list response-jq .data.circleList |= map(select(.bizCode != "saveMoney"))'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlehome\.home\.nextfresh response-jq .data.homeTopList |= [ .[0] ] | .data.sections |= map(select(.data.bizType == "item"))'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.search\.shade response-jq .data.singleShadeWords = [{}]'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.item\.search\.activate response-jq .data.cardList = [{}]'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.search\.discover response-jq del(.data.resultList)'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.idle\.user\.page\.my\.adapter response-jq .data.ability=[] | .data.container.sections |= map(select(.sectionBizCode | test("head|user|trade")))'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.item\.buy\.feeds response-jq del(.data.sections)'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.local\.home response-jq .data.sections |= map(select(.data.bizType == "item"))'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.search(?:\?|$) response-jq .data.resultList |= map(select(.data.item.main.clickParam.args.biz_type == "item"))'
+    - '^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.item\.recommend response-jq .data.cardList |= map(select(.cardData.bizType != "mamaAD"))'
+
+  script:
+    - name: goofish-amdc-clean
+      match: '^http:\/\/[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){1,4}(:\d+)?\/amdc\/mobileDispatch'
+      type: response
+      require-body: true
+      max-size: -1
+      timeout: 10
+      engine: auto
+
+script-providers:
+  goofish-amdc-clean:
+    url: https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js
+    interval: 86400
