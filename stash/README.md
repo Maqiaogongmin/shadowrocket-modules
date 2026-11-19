@@ -9,6 +9,7 @@
 - `overrides/Amap_AdClean.stoverride`：高德地图净化。
 - `overrides/Goofish_AdClean.stoverride`：闲鱼净化。
 - `overrides/JavDB_AdClean_EXPERIMENTAL.stoverride`：JavDB 净化实验版。
+- `overrides/TencentSports_AdClean.stoverride`：腾讯体育净化。
 
 ## 使用顺序
 
