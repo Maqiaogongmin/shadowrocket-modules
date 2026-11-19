@@ -1,0 +1,45 @@
+name: 腾讯体育净化（登录安全版）
+desc: Stash 登录兼容版。保留开屏/广告 SDK/SSP 净化，不 MitM app.sports.qq.com，避免影响腾讯体育账号/微信登录同步。
+# Original: https://github.com/ZenmoFeiShi/Qx
+
+http:
+  mitm:
+    - config.ab.qq.com
+    - k.ssp.qq.com
+    - sports.ssp.qq.com
+
+  script:
+    # GetTabRemoteConfig 返回 protobuf，需要 Stash binary-mode。
+    - name: txsports-ad-clean
+      match: '^https:\/\/config\.ab\.qq\.com\/tab\/GetTabRemoteConfig(?:\?.*)?$'
+      type: response
+      require-body: true
+      binary-mode: true
+      max-size: 2097152
+      timeout: 10
+      engine: auto
+
+    # 广告 SDK 配置
+    - name: txsports-ad-clean
+      match: '^https:\/\/k\.ssp\.qq\.com\/getsdkconfig(?:\?.*)?$'
+      type: response
+      require-body: true
+      binary-mode: false
+      max-size: 2097152
+      timeout: 10
+      engine: auto
+
+    # SSP 广告响应
+    - name: txsports-ad-clean
+      match: '^https:\/\/sports\.ssp\.qq\.com\/app(?:\?.*)?$'
+      type: response
+      require-body: true
+      binary-mode: false
+      max-size: 2097152
+      timeout: 10
+      engine: auto
+
+script-providers:
+  txsports-ad-clean:
+    url: https://raw.githubusercontent.com/Maqiaogongmin/shadowrocket-modules/main/stash/scripts/txsports-ad-clean.js
+    interval: 86400
