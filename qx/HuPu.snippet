@@ -1,0 +1,8 @@
+#!name=虎扑去广告
+#!desc=由 your98k 的 Stash HuPu.stoverride v0.1.1 迁移；仅模拟指定广告接口。
+#!author=your98k
+#!homepage=https://github.com/your98k/Rule-Hub/blob/main/Stash/HuPu.stoverride
+# 原版定向直连见 HuPu.list。
+(?i)^https?://goblin\.hupu\.com/\d+/\d+(?:\.\d+)*/interfaceAd/getOther(?:/|\?|$) url script-echo-response https://raw.githubusercontent.com/Maqiaogongmin/shadowrocket-modules/main/qx/scripts/HuPu.js
+
+hostname = goblin.hupu.com
